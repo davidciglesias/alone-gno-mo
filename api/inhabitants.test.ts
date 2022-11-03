@@ -25,7 +25,7 @@ const mapInhabitantsAMToVMData: MapInhabitantsAMToVMData[] = [
           professions: ["Carpenter", "Mason"],
           thumbnail:
             "https://www.publicdomainpictures.net/pictures/30000/t2/hugo-strikes-again.jpg",
-          weight: 42,
+          weight: 42.15,
         },
       ],
     },
@@ -35,7 +35,7 @@ const mapInhabitantsAMToVMData: MapInhabitantsAMToVMData[] = [
         age: 123,
         friends: [],
         hairColor: "Pink",
-        height: 123.21,
+        height: 123,
         name: "Gnomelia Albricia",
         professions: ["Carpenter", "Mason"],
         thumbnail:
