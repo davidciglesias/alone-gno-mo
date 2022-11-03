@@ -12,16 +12,11 @@ import {
 import LabelItem from "components/LabelItem";
 import theme from "config/theme";
 
+import getQuantityLabel from "./helpers";
+
 interface Props {
   name: string;
   friends: string[];
-}
-
-function getFriendsLabel(friendsCount: number) {
-  // TODO adapt using i18next quantity
-  if (friendsCount === 0) return "No friends ☹️";
-  if (friendsCount > 1) return `${friendsCount} friends`;
-  return "1 friend";
 }
 
 export default function FriendsCard({ name, friends }: Props) {
@@ -39,7 +34,7 @@ export default function FriendsCard({ name, friends }: Props) {
           </LabelItem>
           <Divider variant="fullWidth" />
           <LabelItem
-            label={getFriendsLabel(friends.length)}
+            label={getQuantityLabel("friend", friends.length)}
             icon={<Diversity2Icon />}
           >
             <List sx={{ padding: 0 }}>
