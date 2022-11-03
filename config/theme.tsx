@@ -1,4 +1,4 @@
-import { red } from "@mui/material/colors";
+import { grey, red } from "@mui/material/colors";
 import { createTheme } from "@mui/material/styles";
 
 // Create a theme instance.
@@ -13,16 +13,19 @@ const theme = createTheme({
     error: {
       main: red.A400,
     },
+    background: {
+      default: grey.A200,
+    },
   },
   typography: {
     h1: {
-      fontSize: "4rem",
+      fontSize: "2rem",
     },
     h2: {
-      fontSize: "3rem",
+      fontSize: "1.75rem",
     },
     h3: {
-      fontSize: "2rem",
+      fontSize: "1.5rem",
     },
   },
 });
