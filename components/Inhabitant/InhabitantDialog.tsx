@@ -2,12 +2,14 @@ import { useState } from "react";
 
 import Diversity3Icon from "@mui/icons-material/Diversity3";
 import SensorOccupiedIcon from "@mui/icons-material/SensorOccupied";
+import WorkIcon from "@mui/icons-material/Work";
 import { Dialog, DialogActions, Stack, Tab, Tabs } from "@mui/material";
 
 import { InhabitantVM } from "api/inhabitants";
 
 import FriendsCard from "./FriendsCard";
 import InfoCard from "./InfoCard";
+import ProfessionsCard from "./ProfessionsCard";
 
 interface Props {
   inhabitant: InhabitantVM;
@@ -23,7 +25,7 @@ export default function InhabitantDialog({ onDialogClose, inhabitant }: Props) {
     setActiveTab(tabs[newIndex]);
   };
 
-  const { friends, name } = inhabitant;
+  const { friends, name, professions } = inhabitant;
 
   return (
     <Dialog
@@ -39,8 +41,9 @@ export default function InhabitantDialog({ onDialogClose, inhabitant }: Props) {
       }}
     >
       {activeTab === "info" && <InfoCard inhabitant={inhabitant} />}
-      {activeTab === "friends" && (
-        <FriendsCard name={name} friends={friends} />
+      {activeTab === "friends" && <FriendsCard name={name} friends={friends} />}
+      {activeTab === "professions" && (
+        <ProfessionsCard name={name} professions={professions} />
       )}
       <DialogActions
         sx={{
@@ -55,6 +58,7 @@ export default function InhabitantDialog({ onDialogClose, inhabitant }: Props) {
           >
             <Tab icon={<SensorOccupiedIcon />} aria-label="user info" />
             <Tab icon={<Diversity3Icon />} aria-label="friends" />
+            <Tab icon={<WorkIcon />} aria-label="professionals" />
           </Tabs>
         </Stack>
       </DialogActions>
