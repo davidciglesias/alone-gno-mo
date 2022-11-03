@@ -14,7 +14,7 @@ export default function PaperLayout({ children }: Props) {
           display: "flex",
           flexGrow: 1,
           flexShrink: 0,
-          padding: "5rem",
+          padding: { md: "5rem", xs: "1rem" },
           height: "100%",
           width: "100%",
           backgroundColor: theme.palette.background.default,
