@@ -7,7 +7,7 @@
     "^react$|^react-router-dom$|^react-dom$|^react-dom/",
     "<THIRD_PARTY_MODULES>",
     "next/",
-    "^(config|data|public|components|pages|contexts|mocks)|^(api)$",
+    "^(config|data|public|components|helpers|pages|contexts|mocks|api)",
     "css$|styles/",
     "^res",
     "^[./]"
