@@ -1,5 +1,5 @@
 import BadgeIcon from "@mui/icons-material/Badge";
-import Diversity2Icon from "@mui/icons-material/Diversity2";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
 import {
   Card,
   CardContent,
@@ -35,14 +35,14 @@ export default function ProfessionsCard({ name, professions }: Props) {
           <Divider variant="fullWidth" />
           <LabelItem
             label={getQuantityLabel("profession", professions.length)}
-            icon={<Diversity2Icon />}
+            icon={<WorkHistoryIcon />}
           >
             <List
               sx={{
                 padding: 0,
                 display: "grid",
                 gridTemplateColumns: "1fr 1fr",
-                width: "100%"
+                width: "100%",
               }}
             >
               {professions.map((professions) => (
