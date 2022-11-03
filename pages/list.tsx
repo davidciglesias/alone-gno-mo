@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 import CakeIcon from "@mui/icons-material/Cake";
-import CircleIcon from "@mui/icons-material/Circle";
 import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
@@ -10,9 +9,9 @@ import { Stack, SxProps, Theme, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
 
 import getInhabitants, { InhabitantVM } from "api/inhabitants";
+import ColorComponent from "components/ColorComponent";
 import InhabitantDialog from "components/InhabitantDialog";
 import PaperLayout from "components/PaperLayout";
-import mapTextToBgColor from "helpers/mapTextToBgColor";
 
 const ROWS_PER_PAGE = 100;
 
@@ -84,9 +83,7 @@ const typedColumns: TypedGridColDef[] = [
     renderHeader: () => <Face3Icon />,
     renderCell: ({ row }) => {
       const { hairColor } = row as InhabitantVM;
-      const bgColor = mapTextToBgColor(hairColor);
-      if (bgColor === null) return hairColor;
-      return <CircleIcon htmlColor={bgColor} />;
+      return <ColorComponent textColor={hairColor} />;
     },
   },
 ];
