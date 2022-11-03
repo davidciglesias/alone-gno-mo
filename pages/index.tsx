@@ -1,6 +1,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 
 import Image from "next/image";
+import Link from "next/link";
 
 import PaperLayout from "components/PaperLayout";
 
@@ -24,7 +25,9 @@ export default function Home() {
         <Typography variant="h1" textAlign="center">
           Welcome to the Brastlewark social network!
         </Typography>
-        <Button variant="contained">Log in</Button>
+        <Link href="/list">
+          <Button variant="contained">Log in</Button>
+        </Link>
       </Stack>
     </PaperLayout>
   );
