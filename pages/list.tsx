@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 import CakeIcon from "@mui/icons-material/Cake";
-import CircleIcon from "@mui/icons-material/Circle";
 import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import getInhabitants, { InhabitantVM } from "api/inhabitants";
-import mapTextToBgColor from "helpers/mapTextToBgColor";
+import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
 
+import getInhabitants, { InhabitantVM } from "api/inhabitants";
+import ColorComponent from "components/ColorComponent";
+import InhabitantDialog from "components/Inhabitant/InhabitantDialog";
 import PaperLayout from "components/PaperLayout";
 
 const ROWS_PER_PAGE = 100;
@@ -83,15 +83,16 @@ const typedColumns: TypedGridColDef[] = [
     renderHeader: () => <Face3Icon />,
     renderCell: ({ row }) => {
       const { hairColor } = row as InhabitantVM;
-      const bgColor = mapTextToBgColor(hairColor);
-      if (bgColor === null) return hairColor;
-      return <CircleIcon htmlColor={bgColor} />;
+      return <ColorComponent textColor={hairColor} />;
     },
   },
 ];
 
 export default function List() {
   const [inhabitants, setInhabitants] = useState<InhabitantVM[]>([]);
+  const [focusInhabitant, setFocusInhabitant] = useState<InhabitantVM | null>(
+    null,
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -126,6 +127,13 @@ export default function List() {
     },
   };
 
+  const onRowClick: GridEventListener<"rowClick"> = ({ row }) => {
+    const inhabitant = row as InhabitantVM;
+    setFocusInhabitant(inhabitant);
+  };
+
+  const onDialogClose = () => setFocusInhabitant(null);
+
   return (
     <PaperLayout>
       <Stack
@@ -147,7 +155,14 @@ export default function List() {
           sortingMode="client"
           sx={dataGridSx}
           loading={isLoading}
+          onRowClick={onRowClick}
         />
+        {focusInhabitant !== null && (
+          <InhabitantDialog
+            onDialogClose={onDialogClose}
+            inhabitant={focusInhabitant}
+          />
+        )}
       </Stack>
     </PaperLayout>
   );
