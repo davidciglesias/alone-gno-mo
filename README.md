@@ -52,9 +52,9 @@ Then, open [http://localhost:3000](http://localhost:3000) with your browser to s
 
 ## Deploy on Vercel
 
-The easiest way to deploy a Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Since the project uses `Next.js`, deploying on `Vercel` takes a few clicks only, and given that its `Hobby` tier is free, it was a simple choice for this matter.
 
-The [Next.js deployment documentation](https://nextjs.org/docs/deployment) offers more details.
+The current `App` has been therefore deployed [here](https://alone-gno-mo.vercel.app/)
 
 # Component Library
 
