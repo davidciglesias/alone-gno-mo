@@ -1,7 +1,7 @@
 import { Grid, Stack, Typography } from "@mui/material";
 
 interface Props {
-  gridArea: string;
+  gridArea?: string;
   label: string;
   children: JSX.Element;
   icon: JSX.Element;
