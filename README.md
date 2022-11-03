@@ -31,3 +31,31 @@ This is the outcome of the following exercise:
 - Add minimum tests to the app. We expect to have a minimum documentation on a README file. We need to know what have you done and how to run your app. Also, if you have taken any decision or could not meet any of requirements, please explain it to us!
 - Use Github or any source control tool. It would be great if we can see incremental steps.
 - Determine gender of gnomes (just joking on this one but feel free to make your guess)
+
+# Architecture
+
+Given the focus on caching and resizing remote images, [Next.js](https://nextjs.org/) was chosen as the Frontend Framework for the project.
+
+It was bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) given the 8h timeframe requested.
+
+## How to run locally
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## Deploy on Vercel
+
+The easiest way to deploy a Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+The [Next.js deployment documentation](https://nextjs.org/docs/deployment) offers more details.
+
+# Component Library
+
+The chosen component library is [Material UI](https://mui.com/) due to its simplicity and ease of use. The community version is MIT-licensed too, making it the ideal choice for a small hobby project such as this. Some advanced features are not available in this tier, but they are not relevant to this project.
