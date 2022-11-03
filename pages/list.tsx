@@ -7,11 +7,12 @@ import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import getInhabitants, { InhabitantVM } from "api/inhabitants";
-import mapTextToBgColor from "helpers/mapTextToBgColor";
+import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
 
+import getInhabitants, { InhabitantVM } from "api/inhabitants";
+import InhabitantDialog from "components/InhabitantDialog";
 import PaperLayout from "components/PaperLayout";
+import mapTextToBgColor from "helpers/mapTextToBgColor";
 
 const ROWS_PER_PAGE = 100;
 
@@ -92,6 +93,9 @@ const typedColumns: TypedGridColDef[] = [
 
 export default function List() {
   const [inhabitants, setInhabitants] = useState<InhabitantVM[]>([]);
+  const [focusInhabitant, setFocusInhabitant] = useState<InhabitantVM | null>(
+    null,
+  );
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -126,6 +130,13 @@ export default function List() {
     },
   };
 
+  const onRowClick: GridEventListener<"rowClick"> = ({ row }) => {
+    const inhabitant = row as InhabitantVM;
+    setFocusInhabitant(inhabitant);
+  };
+
+  const onDialogClose = () => setFocusInhabitant(null);
+
   return (
     <PaperLayout>
       <Stack
@@ -147,7 +158,14 @@ export default function List() {
           sortingMode="client"
           sx={dataGridSx}
           loading={isLoading}
+          onRowClick={onRowClick}
         />
+        {focusInhabitant !== null && (
+          <InhabitantDialog
+            onDialogClose={onDialogClose}
+            inhabitant={focusInhabitant}
+          />
+        )}
       </Stack>
     </PaperLayout>
   );
