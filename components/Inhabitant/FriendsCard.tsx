@@ -9,9 +9,8 @@ import {
   Stack,
 } from "@mui/material";
 
+import LabelItem from "components/LabelItem";
 import theme from "config/theme";
-
-import LabelItem from "./LabelItem";
 
 interface Props {
   name: string;
@@ -25,7 +24,7 @@ function getFriendsLabel(friendsCount: number) {
   return "1 friend";
 }
 
-export default function InhabitantFriendsCard({ name, friends }: Props) {
+export default function FriendsCard({ name, friends }: Props) {
   return (
     <Card>
       <CardContent

@@ -8,17 +8,16 @@ import { Card, CardContent, Grid, Stack } from "@mui/material";
 import Image from "next/image";
 
 import { InhabitantVM } from "api/inhabitants";
+import ColorComponent from "components/ColorComponent";
+import LabelItem from "components/LabelItem";
 import theme from "config/theme";
 import loadingImage from "public/alone-gno-mo.png";
-
-import ColorComponent from "./ColorComponent";
-import LabelItem from "./LabelItem";
 
 interface Props {
   inhabitant: InhabitantVM;
 }
 
-export default function InhabitantInfoCard({ inhabitant }: Props) {
+export default function InfoCard({ inhabitant }: Props) {
   const { thumbnail, name, age, weight, height, hairColor } = inhabitant;
 
   return (

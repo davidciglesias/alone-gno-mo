@@ -6,8 +6,8 @@ import { Dialog, DialogActions, Stack, Tab, Tabs } from "@mui/material";
 
 import { InhabitantVM } from "api/inhabitants";
 
-import InhabitantFriendsCard from "./InhabitantFriendsCard";
-import InhabitantInfoCard from "./InhabitantInfoCard";
+import FriendsCard from "./FriendsCard";
+import InfoCard from "./InfoCard";
 
 interface Props {
   inhabitant: InhabitantVM;
@@ -38,9 +38,9 @@ export default function InhabitantDialog({ onDialogClose, inhabitant }: Props) {
         "& .MuiDialog-paper": { borderRadius: "20px" },
       }}
     >
-      {activeTab === "info" && <InhabitantInfoCard inhabitant={inhabitant} />}
+      {activeTab === "info" && <InfoCard inhabitant={inhabitant} />}
       {activeTab === "friends" && (
-        <InhabitantFriendsCard name={name} friends={friends} />
+        <FriendsCard name={name} friends={friends} />
       )}
       <DialogActions
         sx={{

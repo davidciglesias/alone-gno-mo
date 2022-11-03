@@ -10,7 +10,7 @@ import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
 
 import getInhabitants, { InhabitantVM } from "api/inhabitants";
 import ColorComponent from "components/ColorComponent";
-import InhabitantDialog from "components/InhabitantDialog";
+import InhabitantDialog from "components/Inhabitant/InhabitantDialog";
 import PaperLayout from "components/PaperLayout";
 
 const ROWS_PER_PAGE = 100;
