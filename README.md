@@ -48,10 +48,14 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy a Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The [Next.js deployment documentation](https://nextjs.org/docs/deployment) offers more details.
+
+# Component Library
+
+The chosen component library is [Material UI](https://mui.com/) due to its simplicity and ease of use. The community version is MIT-licensed too, making it the ideal choice for a small hobby project such as this. Some advanced features are not available in this tier, but they are not relevant to this project.
