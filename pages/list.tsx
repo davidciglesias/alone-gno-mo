@@ -2,11 +2,14 @@ import { useEffect, useState } from "react";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 import CakeIcon from "@mui/icons-material/Cake";
+import CircleIcon from "@mui/icons-material/Circle";
+import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import getInhabitants, { InhabitantVM } from "api/inhabitants";
+import mapTextToBgColor from "helpers/mapTextToBgColor";
 
 import PaperLayout from "components/PaperLayout";
 
@@ -27,6 +30,10 @@ const typedColumns: TypedGridColDef[] = [
   {
     field: "age",
     headerName: "Age",
+    align: "center",
+    headerAlign: "center",
+    disableColumnMenu: true,
+    width: 80,
     renderHeader: () => (
       <Stack
         justifyContent="center"
@@ -37,35 +44,49 @@ const typedColumns: TypedGridColDef[] = [
         <Typography variant="body1">(y)</Typography>
       </Stack>
     ),
-    headerAlign: "left",
-    align: "left",
-    width: 80,
   },
   {
     field: "height",
     headerName: "Height (cm)",
+    align: "center",
+    headerAlign: "center",
+    disableColumnMenu: true,
+    width: 80,
     renderHeader: () => (
       <Stack justifyContent="center" alignItems="center">
         <HeightIcon />
         <Typography variant="body1">(cm)</Typography>
       </Stack>
     ),
-    headerAlign: "left",
-    align: "left",
-    width: 80,
   },
   {
     field: "weight",
     headerName: "Weight (kg)",
+    align: "center",
+    headerAlign: "center",
+    disableColumnMenu: true,
+    width: 80,
     renderHeader: () => (
       <Stack justifyContent="center" alignItems="center">
         <ScaleIcon />
         <Typography variant="body1">(kg)</Typography>
       </Stack>
     ),
-    headerAlign: "left",
-    align: "left",
+  },
+  {
+    field: "hairColor",
+    headerName: "Hair Color",
+    align: "center",
+    headerAlign: "center",
+    disableColumnMenu: true,
     width: 80,
+    renderHeader: () => <Face3Icon />,
+    renderCell: ({ row }) => {
+      const { hairColor } = row as InhabitantVM;
+      const bgColor = mapTextToBgColor(hairColor);
+      if (bgColor === null) return hairColor;
+      return <CircleIcon htmlColor={bgColor} />;
+    },
   },
 ];
 
@@ -126,7 +147,6 @@ export default function List() {
           sortingMode="client"
           sx={dataGridSx}
           loading={isLoading}
-          disableColumnMenu
         />
       </Stack>
     </PaperLayout>
