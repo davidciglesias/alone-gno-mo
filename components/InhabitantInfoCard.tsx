@@ -8,6 +8,7 @@ import { Card, CardContent, Grid, Stack } from "@mui/material";
 import Image from "next/image";
 
 import { InhabitantVM } from "api/inhabitants";
+import theme from "config/theme";
 import loadingImage from "public/alone-gno-mo.png";
 
 import ColorComponent from "./ColorComponent";
@@ -22,8 +23,20 @@ export default function InhabitantInfoCard({ inhabitant }: Props) {
 
   return (
     <Card sx={{ width: "100%" }}>
-      <CardContent sx={{ padding: 0 }}>
-        <Stack direction="column" gap={2}>
+      <CardContent
+        sx={{
+          "&:last-child": { paddingX: 0, paddingY: 1 },
+          backgroundColor: theme.palette.background.default,
+        }}
+      >
+        <Stack direction="column" gap={1}>
+          <LabelItem
+            gridArea="full-name"
+            label="Full name"
+            icon={<BadgeIcon />}
+          >
+            <div>{name}</div>
+          </LabelItem>
           <Image
             src={thumbnail}
             blurDataURL={loadingImage.blurDataURL}
@@ -41,20 +54,12 @@ export default function InhabitantInfoCard({ inhabitant }: Props) {
             justifyItems="center"
             textAlign="center"
             alignItems="center"
-            gap={2}
-            sx={{ padding: 2 }}
+            gap={1}
+            sx={{ paddingX: 1 }}
             gridTemplateAreas={`
-							"full-name    full-name"
 							"age		    weight"
 							"height	    hair-color"`}
           >
-            <LabelItem
-              gridArea="full-name"
-              label="Full name"
-              icon={<BadgeIcon />}
-            >
-              <div>{name}</div>
-            </LabelItem>
             <LabelItem gridArea="age" label="Age" icon={<CakeIcon />}>
               <div>{age}</div>
             </LabelItem>
