@@ -27,6 +27,7 @@ import PaperLayout from "components/PaperLayout";
 import theme from "config/theme";
 
 const ROWS_PER_PAGE = 100;
+const MAX_WIDTH = 900;
 
 interface TypedGridColDef extends Omit<GridColDef, "field"> {
   field: keyof InhabitantVM;
@@ -207,7 +208,7 @@ export default function List() {
   );
 
   const dataGridSx: SxProps<Theme> = {
-    maxWidth: 720,
+    maxWidth: MAX_WIDTH,
     width: "100%",
     padding: 2,
     paddingBottom: 0,
