@@ -5,14 +5,20 @@ import CakeIcon from "@mui/icons-material/Cake";
 import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
+import WorkIcon from "@mui/icons-material/Work";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
 import {
   DataGrid,
+  GridCellParams,
   GridColDef,
+  GridComparatorFn,
   GridEventListener,
+  GridFilterItem,
   GridFilterPanel,
+  getGridSingleSelectOperators,
 } from "@mui/x-data-grid";
 
+import { hairColorOptions, professionOptions } from "api/const";
 import getInhabitants, { InhabitantVM } from "api/inhabitants";
 import ColorComponent from "components/ColorComponent";
 import InhabitantDialog from "components/Inhabitant/InhabitantDialog";
@@ -51,11 +57,36 @@ function FilterPanel(props: any) {
               fill: theme.palette.error.main,
             },
           },
+          "& .MuiAutocomplete-inputRoot input": {
+            width: "100%",
+          },
         },
       }}
     />
   );
 }
+
+const tagsSortComparator: GridComparatorFn<any> = (tags1: any, tags2: any) => {
+  return tags1.length - tags2.length;
+};
+
+const tagsFilterOperators = getGridSingleSelectOperators()
+  .filter((operator) => operator.value === "isAnyOf")
+  .map((operator) => {
+    const newOperator = { ...operator };
+    const newGetApplyFilterFn = (filterItem: GridFilterItem, _: GridColDef) => {
+      return (params: GridCellParams): boolean => {
+        let isOk = true;
+        filterItem?.value?.forEach((fv: any) => {
+          isOk = isOk && params.value.includes(fv);
+        });
+        return isOk;
+      };
+    };
+    newOperator.label = "Is all of";
+    newOperator.getApplyFilterFn = newGetApplyFilterFn;
+    return newOperator;
+  });
 
 const typedColumns: TypedGridColDef[] = [
   {
@@ -70,7 +101,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Age",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 100,
     type: "number",
     renderHeader: () => (
@@ -89,7 +119,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Height (cm)",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
     type: "number",
     renderHeader: () => (
@@ -104,7 +133,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Weight (kg)",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
     type: "number",
     renderHeader: () => (
@@ -119,13 +147,27 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Hair Color",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
+    type: "singleSelect",
+    valueOptions: hairColorOptions,
     renderHeader: () => <Face3Icon />,
     renderCell: ({ row }) => {
       const { hairColor } = row as InhabitantVM;
       return <ColorComponent textColor={hairColor} />;
     },
+  },
+  {
+    field: "professions",
+    headerName: "Professions",
+    align: "center",
+    headerAlign: "center",
+    width: 110,
+    type: "singleSelect",
+    valueOptions: professionOptions,
+    renderHeader: () => <WorkIcon />,
+    renderCell: ({ value }) => value?.length,
+    sortComparator: tagsSortComparator,
+    filterOperators: tagsFilterOperators,
   },
 ];
 
@@ -192,7 +234,6 @@ export default function List() {
           columns={typedColumns}
           filterMode="client"
           rowsPerPageOptions={[ROWS_PER_PAGE]}
-          disableColumnSelector
           sortingMode="client"
           sx={dataGridSx}
           loading={isLoading}

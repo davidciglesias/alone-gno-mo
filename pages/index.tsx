@@ -26,7 +26,7 @@ export default function Home() {
           Welcome to the Brastlewark social network!
         </Typography>
         <Link href="/list">
-          <Button variant="contained">Log in</Button>
+          <Button variant="contained">Find people</Button>
         </Link>
       </Stack>
     </PaperLayout>

@@ -1,0 +1,28 @@
+// NOTE Normally an endpoint would return these master data values
+export const hairColorOptions = ["Pink", "Green", "Red", "Black", "Gray"];
+export const professionOptions = [
+  "Metalworker",
+  "Woodcarver",
+  "Stonecarver",
+  " Tinker",
+  "Tailor",
+  "Potter",
+  "Brewer",
+  "Medic",
+  "Prospector",
+  "Gemcutter",
+  "Mason",
+  "Cook",
+  "Baker",
+  "Miner",
+  "Carpenter",
+  "Farmer",
+  "Tax inspector",
+  "Smelter",
+  "Butcher",
+  "Sculptor",
+  "Blacksmith",
+  "Mechanic",
+  "Leatherworker",
+  "Marble Carver",
+];
