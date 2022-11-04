@@ -22,7 +22,13 @@ export default function PaperLayout({ children }: Props) {
       >
         <Paper
           elevation={2}
-          sx={{ width: "100%", height: "100%", borderRadius: "1rem" }}
+          sx={{
+            width: "100%",
+            height: "100%",
+            borderRadius: "1rem",
+            maxWidth: "800px",
+            margin: "auto",
+          }}
         >
           {children}
         </Paper>
