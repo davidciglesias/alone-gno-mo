@@ -11,8 +11,10 @@ import {
   GridColDef,
   GridEventListener,
   GridFilterPanel,
+  getGridSingleSelectOperators,
 } from "@mui/x-data-grid";
 
+import { hairColorOptions, professionOptions } from "api/const";
 import getInhabitants, { InhabitantVM } from "api/inhabitants";
 import ColorComponent from "components/ColorComponent";
 import InhabitantDialog from "components/Inhabitant/InhabitantDialog";
@@ -121,6 +123,8 @@ const typedColumns: TypedGridColDef[] = [
     headerAlign: "center",
     disableColumnMenu: true,
     width: 110,
+    type: "singleSelect",
+    valueOptions: hairColorOptions,
     renderHeader: () => <Face3Icon />,
     renderCell: ({ row }) => {
       const { hairColor } = row as InhabitantVM;
