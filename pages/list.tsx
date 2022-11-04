@@ -6,17 +6,55 @@ import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
-import { DataGrid, GridColDef, GridEventListener } from "@mui/x-data-grid";
+import {
+  DataGrid,
+  GridColDef,
+  GridEventListener,
+  GridFilterPanel,
+} from "@mui/x-data-grid";
 
 import getInhabitants, { InhabitantVM } from "api/inhabitants";
 import ColorComponent from "components/ColorComponent";
 import InhabitantDialog from "components/Inhabitant/InhabitantDialog";
 import PaperLayout from "components/PaperLayout";
+import theme from "config/theme";
 
 const ROWS_PER_PAGE = 100;
 
 interface TypedGridColDef extends Omit<GridColDef, "field"> {
   field: keyof InhabitantVM;
+}
+
+function FilterPanel(props: any) {
+  return (
+    <GridFilterPanel
+      {...props}
+      sx={{
+        "& .MuiDataGrid-filterForm": {
+          flexDirection: "column",
+          gap: 2,
+
+          "& .MuiFormControl-root": {
+            width: "100%",
+          },
+
+          "& .MuiDataGrid-filterFormDeleteIcon": {
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            "&::before": {
+              content: '"Filter"',
+              fontWeight: "bold",
+            },
+            "& svg": {
+              fill: theme.palette.error.main,
+            },
+          },
+        },
+      }}
+    />
+  );
 }
 
 const typedColumns: TypedGridColDef[] = [
@@ -33,7 +71,8 @@ const typedColumns: TypedGridColDef[] = [
     align: "center",
     headerAlign: "center",
     disableColumnMenu: true,
-    width: 80,
+    width: 100,
+    type: "number",
     renderHeader: () => (
       <Stack
         justifyContent="center"
@@ -51,7 +90,8 @@ const typedColumns: TypedGridColDef[] = [
     align: "center",
     headerAlign: "center",
     disableColumnMenu: true,
-    width: 80,
+    width: 110,
+    type: "number",
     renderHeader: () => (
       <Stack justifyContent="center" alignItems="center">
         <HeightIcon />
@@ -65,7 +105,8 @@ const typedColumns: TypedGridColDef[] = [
     align: "center",
     headerAlign: "center",
     disableColumnMenu: true,
-    width: 80,
+    width: 110,
+    type: "number",
     renderHeader: () => (
       <Stack justifyContent="center" alignItems="center">
         <ScaleIcon />
@@ -79,7 +120,7 @@ const typedColumns: TypedGridColDef[] = [
     align: "center",
     headerAlign: "center",
     disableColumnMenu: true,
-    width: 80,
+    width: 110,
     renderHeader: () => <Face3Icon />,
     renderCell: ({ row }) => {
       const { hairColor } = row as InhabitantVM;
@@ -156,6 +197,7 @@ export default function List() {
           sx={dataGridSx}
           loading={isLoading}
           onRowClick={onRowClick}
+          components={{ FilterPanel }}
         />
         {focusInhabitant !== null && (
           <InhabitantDialog
