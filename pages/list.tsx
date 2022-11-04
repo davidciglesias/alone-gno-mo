@@ -101,7 +101,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Age",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 100,
     type: "number",
     renderHeader: () => (
@@ -120,7 +119,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Height (cm)",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
     type: "number",
     renderHeader: () => (
@@ -135,7 +133,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Weight (kg)",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
     type: "number",
     renderHeader: () => (
@@ -150,7 +147,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Hair Color",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
     type: "singleSelect",
     valueOptions: hairColorOptions,
@@ -165,7 +161,6 @@ const typedColumns: TypedGridColDef[] = [
     headerName: "Professions",
     align: "center",
     headerAlign: "center",
-    disableColumnMenu: true,
     width: 110,
     type: "singleSelect",
     valueOptions: professionOptions,
@@ -239,7 +234,6 @@ export default function List() {
           columns={typedColumns}
           filterMode="client"
           rowsPerPageOptions={[ROWS_PER_PAGE]}
-          disableColumnSelector
           sortingMode="client"
           sx={dataGridSx}
           loading={isLoading}
