@@ -83,6 +83,7 @@ const tagsFilterOperators = getGridSingleSelectOperators()
         return isOk;
       };
     };
+    newOperator.label = "Is all of";
     newOperator.getApplyFilterFn = newGetApplyFilterFn;
     return newOperator;
   });
@@ -169,6 +170,7 @@ const typedColumns: TypedGridColDef[] = [
     type: "singleSelect",
     valueOptions: professionOptions,
     renderHeader: () => <WorkIcon />,
+    renderCell: ({ value }) => value?.length,
     sortComparator: tagsSortComparator,
     filterOperators: tagsFilterOperators,
   },
