@@ -11,6 +11,7 @@ export default function LabelItem({ gridArea, label, children, icon }: Props) {
   return (
     <Grid
       item
+      container
       gridArea={gridArea}
       direction="column"
       display="flex"
