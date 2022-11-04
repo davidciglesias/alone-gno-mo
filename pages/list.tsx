@@ -5,11 +5,15 @@ import CakeIcon from "@mui/icons-material/Cake";
 import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
+import WorkIcon from "@mui/icons-material/Work";
 import { Stack, SxProps, Theme, Typography } from "@mui/material";
 import {
   DataGrid,
+  GridCellParams,
   GridColDef,
+  GridComparatorFn,
   GridEventListener,
+  GridFilterItem,
   GridFilterPanel,
   getGridSingleSelectOperators,
 } from "@mui/x-data-grid";
@@ -53,11 +57,35 @@ function FilterPanel(props: any) {
               fill: theme.palette.error.main,
             },
           },
+          "& .MuiAutocomplete-inputRoot input": {
+            width: "100%",
+          },
         },
       }}
     />
   );
 }
+
+const tagsSortComparator: GridComparatorFn<any> = (tags1: any, tags2: any) => {
+  return tags1.length - tags2.length;
+};
+
+const tagsFilterOperators = getGridSingleSelectOperators()
+  .filter((operator) => operator.value === "isAnyOf")
+  .map((operator) => {
+    const newOperator = { ...operator };
+    const newGetApplyFilterFn = (filterItem: GridFilterItem, _: GridColDef) => {
+      return (params: GridCellParams): boolean => {
+        let isOk = true;
+        filterItem?.value?.forEach((fv: any) => {
+          isOk = isOk && params.value.includes(fv);
+        });
+        return isOk;
+      };
+    };
+    newOperator.getApplyFilterFn = newGetApplyFilterFn;
+    return newOperator;
+  });
 
 const typedColumns: TypedGridColDef[] = [
   {
@@ -130,6 +158,19 @@ const typedColumns: TypedGridColDef[] = [
       const { hairColor } = row as InhabitantVM;
       return <ColorComponent textColor={hairColor} />;
     },
+  },
+  {
+    field: "professions",
+    headerName: "Professions",
+    align: "center",
+    headerAlign: "center",
+    disableColumnMenu: true,
+    width: 110,
+    type: "singleSelect",
+    valueOptions: professionOptions,
+    renderHeader: () => <WorkIcon />,
+    sortComparator: tagsSortComparator,
+    filterOperators: tagsFilterOperators,
   },
 ];
 
