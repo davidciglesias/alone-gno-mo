@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import BadgeIcon from "@mui/icons-material/Badge";
 import CakeIcon from "@mui/icons-material/Cake";
+import Diversity3Icon from "@mui/icons-material/Diversity3";
 import Face3Icon from "@mui/icons-material/Face3";
 import HeightIcon from "@mui/icons-material/Height";
 import ScaleIcon from "@mui/icons-material/Scale";
@@ -88,88 +89,103 @@ const tagsFilterOperators = getGridSingleSelectOperators()
     return newOperator;
   });
 
-const typedColumns: TypedGridColDef[] = [
-  {
-    field: "name",
-    headerName: "Full name",
-    flex: 1,
-    minWidth: 130,
-    renderHeader: () => <BadgeIcon />,
-  },
-  {
-    field: "age",
-    headerName: "Age",
-    align: "center",
-    headerAlign: "center",
-    width: 100,
-    type: "number",
-    renderHeader: () => (
-      <Stack
-        justifyContent="center"
-        alignItems="center"
-        sx={{ width: "100%", height: "100%" }}
-      >
-        <CakeIcon />
-        <Typography variant="body1">(y)</Typography>
-      </Stack>
-    ),
-  },
-  {
-    field: "height",
-    headerName: "Height (cm)",
-    align: "center",
-    headerAlign: "center",
-    width: 110,
-    type: "number",
-    renderHeader: () => (
-      <Stack justifyContent="center" alignItems="center">
-        <HeightIcon />
-        <Typography variant="body1">(cm)</Typography>
-      </Stack>
-    ),
-  },
-  {
-    field: "weight",
-    headerName: "Weight (kg)",
-    align: "center",
-    headerAlign: "center",
-    width: 110,
-    type: "number",
-    renderHeader: () => (
-      <Stack justifyContent="center" alignItems="center">
-        <ScaleIcon />
-        <Typography variant="body1">(kg)</Typography>
-      </Stack>
-    ),
-  },
-  {
-    field: "hairColor",
-    headerName: "Hair Color",
-    align: "center",
-    headerAlign: "center",
-    width: 110,
-    type: "singleSelect",
-    valueOptions: hairColorOptions,
-    renderHeader: () => <Face3Icon />,
-    renderCell: ({ row }) => {
-      const { hairColor } = row as InhabitantVM;
-      return <ColorComponent textColor={hairColor} />;
+function getTypedColumns(friendOptions: string[]): TypedGridColDef[] {
+  return [
+    {
+      field: "name",
+      headerName: "Full name",
+      flex: 1,
+      minWidth: 130,
+      renderHeader: () => <BadgeIcon />,
     },
-  },
-  {
-    field: "professions",
-    headerName: "Professions",
-    align: "center",
-    headerAlign: "center",
-    width: 110,
-    type: "singleSelect",
-    valueOptions: professionOptions,
-    renderHeader: () => <WorkIcon />,
-    renderCell: ({ value }) => value?.length,
-    sortComparator: tagsSortComparator,
-    filterOperators: tagsFilterOperators,
-  },
-];
+    {
+      field: "age",
+      headerName: "Age",
+      align: "center",
+      headerAlign: "center",
+      width: 100,
+      type: "number",
+      renderHeader: () => (
+        <Stack
+          justifyContent="center"
+          alignItems="center"
+          sx={{ width: "100%", height: "100%" }}
+        >
+          <CakeIcon />
+          <Typography variant="body1">(y)</Typography>
+        </Stack>
+      ),
+    },
+    {
+      field: "height",
+      headerName: "Height (cm)",
+      align: "center",
+      headerAlign: "center",
+      width: 110,
+      type: "number",
+      renderHeader: () => (
+        <Stack justifyContent="center" alignItems="center">
+          <HeightIcon />
+          <Typography variant="body1">(cm)</Typography>
+        </Stack>
+      ),
+    },
+    {
+      field: "weight",
+      headerName: "Weight (kg)",
+      align: "center",
+      headerAlign: "center",
+      width: 110,
+      type: "number",
+      renderHeader: () => (
+        <Stack justifyContent="center" alignItems="center">
+          <ScaleIcon />
+          <Typography variant="body1">(kg)</Typography>
+        </Stack>
+      ),
+    },
+    {
+      field: "hairColor",
+      headerName: "Hair Color",
+      align: "center",
+      headerAlign: "center",
+      width: 110,
+      type: "singleSelect",
+      valueOptions: hairColorOptions,
+      renderHeader: () => <Face3Icon />,
+      renderCell: ({ row }) => {
+        const { hairColor } = row as InhabitantVM;
+        return <ColorComponent textColor={hairColor} />;
+      },
+    },
+    {
+      field: "professions",
+      headerName: "Professions",
+      align: "center",
+      headerAlign: "center",
+      width: 110,
+      type: "singleSelect",
+      valueOptions: professionOptions,
+      renderHeader: () => <WorkIcon />,
+      renderCell: ({ value }) => value?.length,
+      sortComparator: tagsSortComparator,
+      filterOperators: tagsFilterOperators,
+    },
+    {
+      field: "friends",
+      headerName: "Friends",
+      align: "center",
+      headerAlign: "center",
+      width: 110,
+      type: "singleSelect",
+      valueOptions: friendOptions,
+      renderHeader: () => <Diversity3Icon />,
+      renderCell: ({ value }) => value?.length,
+      sortComparator: tagsSortComparator,
+      filterOperators: tagsFilterOperators,
+    },
+  ];
+}
 
 export default function List() {
   const [inhabitants, setInhabitants] = useState<InhabitantVM[]>([]);
@@ -184,6 +200,11 @@ export default function List() {
       .then(setInhabitants)
       .finally(() => setIsLoading(false));
   }, []);
+
+  const columns = useMemo(
+    () => getTypedColumns(inhabitants.map((inhabitant) => inhabitant.name)),
+    [inhabitants],
+  );
 
   const dataGridSx: SxProps<Theme> = {
     maxWidth: 720,
@@ -231,7 +252,7 @@ export default function List() {
         <Typography variant="h1">Inhabitants of Brustlewark</Typography>
         <DataGrid
           rows={inhabitants}
-          columns={typedColumns}
+          columns={columns}
           filterMode="client"
           rowsPerPageOptions={[ROWS_PER_PAGE]}
           sortingMode="client"
