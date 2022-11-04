@@ -33,9 +33,9 @@ export default function InhabitantDialog({ onDialogClose, inhabitant }: Props) {
       onClose={onDialogClose}
       sx={{
         maxHeight: "600px",
-        minHeight: "95vh",
+        minHeight: "100vh",
         maxWidth: "512px",
-        minWidth: "90vw",
+        minWidth: "100vw",
         "& .MuiCard-root": { borderRadius: 0, overflowY: "auto" },
         "& .MuiDialog-paper": { borderRadius: "20px" },
       }}
