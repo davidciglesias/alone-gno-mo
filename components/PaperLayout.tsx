@@ -6,6 +6,8 @@ interface Props {
   children: JSX.Element;
 }
 
+const MAX_WIDTH = 1000;
+
 export default function PaperLayout({ children }: Props) {
   return (
     <main>
@@ -26,7 +28,7 @@ export default function PaperLayout({ children }: Props) {
             width: "100%",
             height: "100%",
             borderRadius: "1rem",
-            maxWidth: "800px",
+            maxWidth: MAX_WIDTH,
             margin: "auto",
           }}
         >
